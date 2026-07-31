@@ -1,0 +1,470 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cutts & Bruises, LLC — Auto Repair & Tires | Bloomsburg, PA</title>
+<meta name="description" content="Tires, oil changes, diagnostics, and general repair in Bloomsburg, PA. Two minutes off Exit 236A on I-80. Call (570) 784-2303.">
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Work+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --charcoal:#232323;
+    --charcoal-deep:#171614;
+    --charcoal-raised:#2c2b28;
+    --gold:#c9982e;
+    --gold-bright:#e0b246;
+    --cream:#f0e6d2;
+    --brick:#8b3a2c;
+    --brick-bright:#a84836;
+    --ink:#161513;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Work Sans',sans-serif;
+    background:var(--cream);
+    color:var(--ink);
+    line-height:1.7;
+    overflow-x:hidden;
+  }
+  h1,h2,h3,.font-display{
+    font-family:'Archivo Black',sans-serif;
+    letter-spacing:-0.02em;
+    line-height:1.05;
+  }
+  .font-mono{font-family:'JetBrains Mono',monospace;}
+
+  ::selection{background:var(--gold);color:var(--ink);}
+
+  /* grain texture overlay */
+  .grain{position:relative;}
+  .grain::before{
+    content:"";
+    position:absolute; inset:0;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+    pointer-events:none;
+    z-index:1;
+    mix-blend-mode:overlay;
+  }
+
+  /* riveted card corners */
+  .riveted{position:relative;}
+  .riveted::before,.riveted::after,
+  .riveted .rivet-bl,.riveted .rivet-br{
+    content:"";
+    position:absolute;
+    width:7px;height:7px;
+    border-radius:50%;
+    background:radial-gradient(circle at 35% 30%, #d8c98f, var(--gold) 55%, #7a5c17 100%);
+    box-shadow:0 1px 2px rgba(0,0,0,.5) inset, 0 1px 1px rgba(255,255,255,.15);
+  }
+  .riveted::before{top:12px;left:12px;}
+  .riveted::after{top:12px;right:12px;}
+  .riveted .rivet-bl{bottom:12px;left:12px;}
+  .riveted .rivet-br{bottom:12px;right:12px;}
+
+  .clip-plate{
+    clip-path:polygon(0 12px, 12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%);
+  }
+  .clip-plate-r{
+    clip-path:polygon(12px 0, 100% 0, 100% 100%, calc(100% - 12px) 100%, 0 100%, 0 12px);
+  }
+
+  .torn-edge{
+    position:relative;
+  }
+  .torn-edge::after{
+    content:"";
+    position:absolute;
+    left:0; right:0; bottom:-1px; height:14px;
+    background:
+      linear-gradient(135deg, var(--cream) 25%, transparent 25%) 0 0/14px 14px,
+      linear-gradient(-135deg, var(--cream) 25%, transparent 25%) 0 0/14px 14px;
+    background-color:transparent;
+  }
+
+  .btn-primary{
+    background:var(--gold);
+    color:var(--ink);
+    font-family:'Archivo Black',sans-serif;
+    letter-spacing:-0.01em;
+    transition:transform .18s cubic-bezier(.34,1.56,.64,1), box-shadow .18s ease, background .18s ease;
+    box-shadow:0 4px 0 #8a6a1c, 0 8px 18px -6px rgba(0,0,0,.5);
+  }
+  .btn-primary:hover{
+    background:var(--gold-bright);
+    transform:translateY(-2px);
+    box-shadow:0 6px 0 #8a6a1c, 0 14px 24px -8px rgba(0,0,0,.55);
+  }
+  .btn-primary:active{
+    transform:translateY(2px);
+    box-shadow:0 2px 0 #8a6a1c, 0 4px 10px -4px rgba(0,0,0,.5);
+  }
+  .btn-primary:focus-visible{
+    outline:3px solid var(--cream);
+    outline-offset:3px;
+  }
+
+  .btn-ghost{
+    border:2px solid var(--cream);
+    color:var(--cream);
+    transition:transform .18s cubic-bezier(.34,1.56,.64,1), background .18s ease, color .18s ease;
+  }
+  .btn-ghost:hover{
+    background:var(--cream);
+    color:var(--ink);
+    transform:translateY(-2px);
+  }
+  .btn-ghost:focus-visible{
+    outline:3px solid var(--gold);
+    outline-offset:3px;
+  }
+
+  .nav-link{position:relative;}
+  .nav-link::after{
+    content:"";
+    position:absolute; left:0; bottom:-4px;
+    width:0; height:2px;
+    background:var(--gold);
+    transition:width .2s ease;
+  }
+  .nav-link:hover::after{width:100%;}
+  .nav-link:focus-visible{outline:2px solid var(--gold); outline-offset:4px;}
+
+  .service-card{
+    background:var(--charcoal-raised);
+    transition:transform .22s cubic-bezier(.34,1.56,.64,1), box-shadow .22s ease, border-color .22s ease;
+    border:1px solid #3a3834;
+  }
+  .service-card:hover{
+    transform:translateY(-6px);
+    box-shadow:0 20px 40px -16px rgba(0,0,0,.6), 0 0 0 1px var(--gold);
+    border-color:var(--gold);
+  }
+
+  .badge-stamp{
+    border:3px solid var(--brick);
+    border-radius:50%;
+    transform:rotate(-6deg);
+  }
+
+  .wrench-watermark{
+    position:absolute;
+    opacity:0.09;
+    pointer-events:none;
+    border-radius:50%;
+    filter:grayscale(1) contrast(1.1);
+  }
+
+  .hero-bg{
+    background:
+      radial-gradient(circle at 15% 20%, rgba(201,152,46,0.18), transparent 45%),
+      radial-gradient(circle at 85% 75%, rgba(139,58,44,0.25), transparent 50%),
+      linear-gradient(180deg, var(--charcoal-deep) 0%, var(--charcoal) 100%);
+  }
+
+  .diag-stripe{
+    background-image: repeating-linear-gradient(-45deg, var(--brick) 0, var(--brick) 14px, var(--gold) 14px, var(--gold) 28px);
+  }
+
+  .map-placeholder{
+    background-image:
+      linear-gradient(rgba(240,230,210,0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(240,230,210,0.06) 1px, transparent 1px);
+    background-size:28px 28px;
+    background-color:var(--charcoal-deep);
+  }
+
+  input, textarea{
+    background:var(--cream);
+    border:2px solid #d8cba9;
+    transition:border-color .18s ease, box-shadow .18s ease;
+  }
+  input:focus, textarea:focus{
+    outline:none;
+    border-color:var(--gold);
+    box-shadow:0 0 0 3px rgba(201,152,46,0.25);
+  }
+
+  .fade-up{
+    opacity:0;
+    transform:translateY(24px);
+    animation:fadeUp .7s cubic-bezier(.16,1,.3,1) forwards;
+  }
+  @keyframes fadeUp{ to{ opacity:1; transform:translateY(0);} }
+  .d1{animation-delay:.05s;} .d2{animation-delay:.15s;} .d3{animation-delay:.25s;} .d4{animation-delay:.35s;}
+
+  ::-webkit-scrollbar{width:10px;}
+  ::-webkit-scrollbar-track{background:var(--charcoal-deep);}
+  ::-webkit-scrollbar-thumb{background:var(--gold); border-radius:0;}
+</style>
+</head>
+<body>
+
+<!-- ============ NAV ============ -->
+<header class="fixed top-0 left-0 right-0 z-50 bg-[rgba(23,22,20,0.95)] backdrop-blur border-b border-[#3a3834]">
+  <div class="max-w-6xl mx-auto px-4 sm:px-8 flex items-center justify-between h-16 sm:h-20 gap-2">
+    <a href="#top" class="flex items-center gap-2 sm:gap-3 min-w-0">
+      <img src="Brand%20Assets/CUtts%20logo.png" alt="Cutts & Bruises, LLC logo" class="h-10 w-10 sm:h-14 sm:w-14 rounded-full object-cover shrink-0">
+      <span class="font-display text-[var(--cream)] text-xs sm:text-base leading-tight truncate">CUTTS &amp; BRUISES<span class="hidden sm:block text-[var(--gold)] text-[10px] font-mono font-normal tracking-widest mt-0.5">AUTO &amp; TIRE — BLOOMSBURG PA</span></span>
+    </a>
+    <nav class="hidden md:flex items-center gap-8 font-mono text-xs tracking-widest uppercase text-[var(--cream)]">
+      <a href="#services" class="nav-link">Services</a>
+      <a href="#work" class="nav-link">Our Work</a>
+      <a href="#location" class="nav-link">Location</a>
+      <a href="#contact" class="nav-link">Contact</a>
+    </nav>
+    <a href="tel:5707842303" class="btn-primary px-3 sm:px-4 py-2 sm:py-2.5 text-[11px] sm:text-sm clip-plate whitespace-nowrap shrink-0"><span class="sm:hidden">CALL NOW</span><span class="hidden sm:inline">CALL (570) 784-2303</span></a>
+  </div>
+</header>
+
+<div id="top"></div>
+
+<!-- ============ HERO ============ -->
+<section class="hero-bg grain relative pt-40 pb-28 px-5 sm:px-8 overflow-hidden">
+  <img src="Brand%20Assets/CUtts%20logo.png" alt="" aria-hidden="true" class="wrench-watermark" style="top:-120px; right:-140px; width:620px; height:620px;">
+
+  <div class="max-w-6xl mx-auto relative z-10">
+    <div class="fade-up d1 inline-flex items-center gap-2 font-mono text-[11px] tracking-[0.2em] uppercase text-[var(--gold)] border border-[rgba(201,152,46,0.40)] px-3 py-1.5 mb-7">
+      <span class="w-1.5 h-1.5 rounded-full bg-[var(--gold)]"></span>
+      Bloomsburg, PA &middot; Est. 2026
+    </div>
+
+    <h1 class="fade-up d2 text-[var(--cream)] text-4xl sm:text-5xl lg:text-6xl max-w-3xl uppercase">
+      Your Car, Fixed Right. No Games, No Guessing.
+    </h1>
+
+    <p class="fade-up d3 font-sans text-[rgba(240,230,210,0.85)] text-lg sm:text-xl max-w-xl mt-6 leading-relaxed">
+      A new shop on Columbia Blvd handling tires, oil changes, diagnostics, and general repair for Bloomsburg drivers. We tell you what's wrong, what it costs, and how long it takes. That's it.
+    </p>
+
+    <div class="fade-up d4 flex flex-wrap gap-4 mt-10">
+      <a href="tel:5707842303" class="btn-primary px-7 py-4 text-sm sm:text-base clip-plate">CALL NOW — (570) 784-2303</a>
+      <a href="#contact" class="btn-ghost px-7 py-4 text-sm sm:text-base font-mono uppercase tracking-wide clip-plate-r">Get a Quote</a>
+    </div>
+
+    <div class="fade-up d4 flex flex-wrap gap-x-8 gap-y-3 mt-14 font-mono text-xs text-[rgba(240,230,210,0.72)] uppercase tracking-wide">
+      <span>5539 Columbia Blvd, Bloomsburg PA 17815</span>
+      <span class="text-[var(--gold)]">2 min from Exit 236A, I-80</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SERVICES ============ -->
+<section id="services" class="bg-[var(--cream)] py-24 px-5 sm:px-8">
+  <div class="max-w-6xl mx-auto">
+    <div class="flex items-end justify-between flex-wrap gap-4 mb-14">
+      <div>
+        <span class="font-mono text-xs tracking-[0.2em] uppercase text-[var(--brick)]">01 — What We Do</span>
+        <h2 class="text-3xl sm:text-4xl mt-3 uppercase">Four Things, Done Well</h2>
+      </div>
+      <p class="max-w-sm text-[rgba(22,21,19,0.72)]">We're not chasing every job in the county. Tires, oil, diagnostics, repair — that's the shop.</p>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+
+      <div class="service-card riveted clip-plate p-7 text-[var(--cream)]">
+        <div class="rivet-bl"></div><div class="rivet-br"></div>
+        <span class="font-mono text-[var(--gold)] text-xs">01</span>
+        <h3 class="text-xl mt-4 mb-3 uppercase">Tires</h3>
+        <p class="text-[rgba(240,230,210,0.78)] text-sm leading-relaxed">New tires, mounting, balancing, rotation, and flat repair. We'll tell you straight if a patch will hold or if you need a replacement.</p>
+      </div>
+
+      <div class="service-card riveted clip-plate p-7 text-[var(--cream)]">
+        <div class="rivet-bl"></div><div class="rivet-br"></div>
+        <span class="font-mono text-[var(--gold)] text-xs">02</span>
+        <h3 class="text-xl mt-4 mb-3 uppercase">Oil Changes</h3>
+        <p class="text-[rgba(240,230,210,0.78)] text-sm leading-relaxed">Conventional, synthetic blend, or full synthetic. In and out without a sales pitch on six add-ons you didn't ask for.</p>
+      </div>
+
+      <div class="service-card riveted clip-plate p-7 text-[var(--cream)]">
+        <div class="rivet-bl"></div><div class="rivet-br"></div>
+        <span class="font-mono text-[var(--gold)] text-xs">03</span>
+        <h3 class="text-xl mt-4 mb-3 uppercase">General Repair</h3>
+        <p class="text-[rgba(240,230,210,0.78)] text-sm leading-relaxed">Brakes, suspension, belts, batteries, and the stuff that makes a check engine light come on. We work on what you actually drive.</p>
+      </div>
+
+      <div class="service-card riveted clip-plate p-7 text-[var(--cream)]">
+        <div class="rivet-bl"></div><div class="rivet-br"></div>
+        <span class="font-mono text-[var(--gold)] text-xs">04</span>
+        <h3 class="text-xl mt-4 mb-3 uppercase">Diagnostics</h3>
+        <p class="text-[rgba(240,230,210,0.78)] text-sm leading-relaxed">Warning light on? We hook it up, find the actual cause, and explain it in plain terms before any work starts.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ TRUST ============ -->
+<section class="hero-bg grain relative py-24 px-5 sm:px-8 overflow-hidden">
+  <img src="Brand%20Assets/CUtts%20logo.png" alt="" aria-hidden="true" class="wrench-watermark" style="bottom:-160px; left:-160px; width:680px; height:680px;">
+
+  <div class="max-w-6xl mx-auto relative z-10">
+    <span class="font-mono text-xs tracking-[0.2em] uppercase text-[var(--gold)]">02 — Why Us</span>
+    <h2 class="text-3xl sm:text-4xl mt-3 mb-16 uppercase text-[var(--cream)] max-w-2xl">We're New. Here's What That Actually Means For You.</h2>
+
+    <div class="grid md:grid-cols-3 gap-10">
+      <div>
+        <div class="badge-stamp w-16 h-16 flex items-center justify-center mb-6">
+          <span class="font-mono text-[var(--brick)] text-2xl">01</span>
+        </div>
+        <h3 class="text-lg text-[var(--cream)] uppercase mb-3">No Backlog, No Waiting Room</h3>
+        <p class="text-[rgba(240,230,210,0.78)] text-sm leading-relaxed">We just opened. That means open bays and appointment times that aren't booked out two weeks, not a shop coasting on old bookings.</p>
+      </div>
+      <div>
+        <div class="badge-stamp w-16 h-16 flex items-center justify-center mb-6">
+          <span class="font-mono text-[var(--brick)] text-2xl">02</span>
+        </div>
+        <h3 class="text-lg text-[var(--cream)] uppercase mb-3">No Upsell</h3>
+        <p class="text-[rgba(240,230,210,0.78)] text-sm leading-relaxed">We tell you what's broken and what it costs to fix. Nothing gets added to your ticket without you agreeing to it first.</p>
+      </div>
+      <div>
+        <div class="badge-stamp w-16 h-16 flex items-center justify-center mb-6">
+          <span class="font-mono text-[var(--brick)] text-2xl">03</span>
+        </div>
+        <h3 class="text-lg text-[var(--cream)] uppercase mb-3">Local, Not a Chain</h3>
+        <p class="text-[rgba(240,230,210,0.78)] text-sm leading-relaxed">Columbia Blvd, two minutes off Exit 236A. You're talking to the person who worked on your car, not a call center.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WORK / GALLERY ============ -->
+<section id="work" class="bg-[var(--cream)] py-24 px-5 sm:px-8">
+  <div class="max-w-6xl mx-auto">
+    <span class="font-mono text-xs tracking-[0.2em] uppercase text-[var(--brick)]">03 — Our Work</span>
+    <h2 class="text-3xl sm:text-4xl mt-3 mb-14 uppercase">From The Shop Floor</h2>
+
+    <div class="grid sm:grid-cols-3 gap-5">
+      <div class="riveted clip-plate overflow-hidden relative h-80 group">
+        <div class="rivet-bl"></div><div class="rivet-br"></div>
+        <img src="Brand%20Assets/Work%201.png" alt="Tire and wheel close-up, service work at Cutts & Bruises" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent"></div>
+        <span class="absolute bottom-4 left-4 font-mono text-xs text-[var(--cream)] uppercase tracking-wide">Tire Service</span>
+      </div>
+
+      <div class="riveted clip-plate relative h-80 border-2 border-dashed border-[rgba(35,35,35,0.35)] flex flex-col items-center justify-center bg-[rgba(35,35,35,0.05)]">
+        <div class="rivet-bl"></div><div class="rivet-br"></div>
+        <span class="font-mono text-4xl text-[rgba(35,35,35,0.35)]">+</span>
+        <span class="font-mono text-xs text-[rgba(35,35,35,0.55)] uppercase tracking-wide mt-3">Shop photo coming soon</span>
+      </div>
+
+      <div class="riveted clip-plate relative h-80 border-2 border-dashed border-[rgba(35,35,35,0.35)] flex flex-col items-center justify-center bg-[rgba(35,35,35,0.05)]">
+        <div class="rivet-bl"></div><div class="rivet-br"></div>
+        <span class="font-mono text-4xl text-[rgba(35,35,35,0.35)]">+</span>
+        <span class="font-mono text-xs text-[rgba(35,35,35,0.55)] uppercase tracking-wide mt-3">Shop photo coming soon</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ LOCATION ============ -->
+<section id="location" class="bg-[var(--charcoal-deep)] py-24 px-5 sm:px-8">
+  <div class="max-w-6xl mx-auto grid lg:grid-cols-2 gap-14 items-center">
+
+    <div>
+      <span class="font-mono text-xs tracking-[0.2em] uppercase text-[var(--gold)]">04 — Find Us</span>
+      <h2 class="text-3xl sm:text-4xl mt-3 mb-10 uppercase text-[var(--cream)]">Right Off Exit 236A</h2>
+
+      <div class="space-y-7 font-sans">
+        <div class="flex gap-4">
+          <span class="font-mono text-[var(--gold)] text-xs mt-1 shrink-0 w-20">ADDRESS</span>
+          <span class="text-[var(--cream)]">5539 Columbia Blvd<br>Bloomsburg, PA 17815</span>
+        </div>
+        <div class="flex gap-4">
+          <span class="font-mono text-[var(--gold)] text-xs mt-1 shrink-0 w-20">PHONE</span>
+          <a href="tel:5707842303" class="text-[var(--cream)] hover:text-[var(--gold)] transition-colors">(570) 784-2303</a>
+        </div>
+        <div class="flex gap-4">
+          <span class="font-mono text-[var(--gold)] text-xs mt-1 shrink-0 w-20">HOURS</span>
+          <div class="text-[var(--cream)]">
+            <span>Mon–Fri: 8:30 AM – 5:30 PM</span>
+            <span class="block font-mono text-[10px] text-[var(--brick-bright)] uppercase tracking-wide mt-1">Placeholder — confirm before publishing</span>
+          </div>
+        </div>
+        <div class="flex gap-4">
+          <span class="font-mono text-[var(--gold)] text-xs mt-1 shrink-0 w-20">ROUTE</span>
+          <span class="text-[rgba(240,230,210,0.85)]">Two minutes off Exit 236A on I-80. Look for the shop on Columbia Blvd.</span>
+        </div>
+      </div>
+
+      <a href="tel:5707842303" class="btn-primary inline-block px-7 py-4 text-sm mt-10 clip-plate">CALL (570) 784-2303</a>
+    </div>
+
+    <div class="map-placeholder riveted clip-plate-r h-96 relative flex items-center justify-center border border-[#3a3834]">
+      <div class="rivet-bl"></div><div class="rivet-br"></div>
+      <div class="text-center">
+        <div class="w-14 h-14 mx-auto mb-4 rounded-full bg-[var(--brick)] flex items-center justify-center">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#f0e6d2" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+        </div>
+        <span class="font-mono text-xs text-[rgba(240,230,210,0.62)] uppercase tracking-widest">Map embed placeholder</span>
+        <span class="block font-mono text-[10px] text-[rgba(240,230,210,0.42)] mt-1">5539 Columbia Blvd, Bloomsburg PA</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============ CONTACT / FOOTER ============ -->
+<footer id="contact" class="diag-stripe">
+  <div class="bg-[var(--charcoal)] grain relative">
+    <div class="max-w-6xl mx-auto px-5 sm:px-8 py-24 grid lg:grid-cols-2 gap-16 relative z-10">
+
+      <div>
+        <span class="font-mono text-xs tracking-[0.2em] uppercase text-[var(--gold)]">05 — Get In Touch</span>
+        <h2 class="text-3xl sm:text-4xl mt-3 mb-6 uppercase text-[var(--cream)]">Call, Or Send The Details</h2>
+        <p class="text-[rgba(240,230,210,0.82)] max-w-md mb-10">Fastest way to get an answer is the phone. If it's easier to type it out, use the form and we'll call you back.</p>
+
+        <a href="tel:5707842303" class="block mb-10">
+          <span class="font-mono text-xs text-[var(--gold)] uppercase tracking-widest">Call now</span>
+          <span class="block text-4xl sm:text-5xl font-display text-[var(--cream)] mt-2 hover:text-[var(--gold)] transition-colors">(570) 784-2303</span>
+        </a>
+
+        <div class="flex items-center gap-4">
+          <img src="Brand%20Assets/CUtts%20logo.png" alt="Cutts & Bruises, LLC" class="h-16 w-16 rounded-full object-cover">
+          <div class="font-mono text-xs text-[rgba(240,230,210,0.62)] leading-relaxed">
+            CUTTS &amp; BRUISES, LLC<br>
+            5539 Columbia Blvd, Bloomsburg, PA 17815
+          </div>
+        </div>
+      </div>
+
+      <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST" class="space-y-5">
+        <div>
+          <label for="name" class="font-mono text-xs uppercase tracking-widest text-[rgba(240,230,210,0.72)] block mb-2">Name</label>
+          <input type="text" id="name" name="name" required class="w-full px-4 py-3 clip-plate text-[var(--ink)]">
+        </div>
+        <div class="grid sm:grid-cols-2 gap-5">
+          <div>
+            <label for="phone" class="font-mono text-xs uppercase tracking-widest text-[rgba(240,230,210,0.72)] block mb-2">Phone</label>
+            <input type="tel" id="phone" name="phone" required class="w-full px-4 py-3 clip-plate text-[var(--ink)]">
+          </div>
+          <div>
+            <label for="vehicle" class="font-mono text-xs uppercase tracking-widest text-[rgba(240,230,210,0.72)] block mb-2">Vehicle (year/make/model)</label>
+            <input type="text" id="vehicle" name="vehicle" class="w-full px-4 py-3 clip-plate text-[var(--ink)]">
+          </div>
+        </div>
+        <div>
+          <label for="message" class="font-mono text-xs uppercase tracking-widest text-[rgba(240,230,210,0.72)] block mb-2">What's going on with the car?</label>
+          <textarea id="message" name="message" rows="4" required class="w-full px-4 py-3 clip-plate text-[var(--ink)] resize-none"></textarea>
+        </div>
+        <button type="submit" class="btn-primary w-full sm:w-auto px-8 py-4 text-sm clip-plate">SEND — WE'LL CALL YOU BACK</button>
+      </form>
+
+    </div>
+
+    <div class="border-t border-[#3a3834] relative z-10">
+      <div class="max-w-6xl mx-auto px-5 sm:px-8 py-6 flex flex-wrap items-center justify-between gap-4 font-mono text-[11px] text-[rgba(240,230,210,0.52)] uppercase tracking-wide">
+        <span>&copy; 2026 Cutts &amp; Bruises, LLC — Bloomsburg, PA</span>
+        <span>Mockup for review — not a live site</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
